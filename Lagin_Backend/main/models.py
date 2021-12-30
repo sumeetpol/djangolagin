@@ -3,6 +3,7 @@ from datetime import datetime,date
 # Create your models here.
 class mainsignup(models.Model):
     sid=models.TextField(null=True)
+    hid=models.TextField(null=True)
     fname=models.TextField(null=True,max_length=200)
     mname=models.TextField(null=True,max_length=200)
     lname=models.TextField(null=True,max_length=200)
@@ -24,7 +25,7 @@ class mainsignup(models.Model):
     religion=models.TextField(null=True,max_length=200)
     rashi=models.TextField(null=True,max_length=200)
     income=models.TextField(null=True,max_length=200)
-
+    heartc=models.TextField(default="hearto")
 
     def __str__(self):
         return self.fname
@@ -37,6 +38,7 @@ class Signup(models.Model):
     email=models.EmailField(null=True,)
     phno1=models.BigIntegerField(null=True,)
     password=models.TextField(null=True,max_length=200)
+    otp=models.TextField(null=True,max_length=6)
 
     def __str__(self):
         return self.email
@@ -51,6 +53,6 @@ class Fav_list(models.Model):
     mid=models.BigIntegerField(null=True,)
     statusid=models.BigIntegerField(null=True,)
     supid=models.BigIntegerField(null=True,)
-
+    
     def __str__(self):
         return self.mid  

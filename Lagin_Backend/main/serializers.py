@@ -9,6 +9,7 @@ class MainsignupSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
 
         'id',
+        'hid',
         'sid',
         'fname',
         'mname',
@@ -31,6 +32,7 @@ class MainsignupSerializer(serializers.HyperlinkedModelSerializer):
         'income',
         'image1',
         'image2',
+        'heartc',
         ]
 class SignupSerializer(serializers.HyperlinkedModelSerializer):
     
@@ -45,6 +47,7 @@ class SignupSerializer(serializers.HyperlinkedModelSerializer):
         'email',
         'phno1',
         'password',
+	'otp',
         
         ]
     
@@ -57,6 +60,6 @@ class FavSerializer(serializers.HyperlinkedModelSerializer):
         'mid',
         'statusid',
         'supid',
-        
+           
         ]
 

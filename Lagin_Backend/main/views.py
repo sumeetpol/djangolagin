@@ -9,7 +9,9 @@ from rest_framework import status
 from rest_framework import viewsets
 from rest_framework import permissions
 from django.views.decorators.csrf import csrf_exempt
-
+from django.core.mail import send_mail
+from django.utils.crypto import get_random_string
+from rest_framework import pagination
 @api_view(['GET', 'POST','PUT','DELETE'])
 def main_list(request):
     """
@@ -89,7 +91,8 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = mainsignup.objects.all()
     serializer_class = MainsignupSerializer
-    
+    pagination.PageNumberPagination.page_size = 1000000
+
 @api_view(['GET', 'POST','PUT','DELETE'])
 def signup_list(request):
     """
@@ -123,7 +126,7 @@ class SignupViewSet(viewsets.ModelViewSet):
     """
     queryset = Signup.objects.all()
     serializer_class = SignupSerializer
-
+    pagination.PageNumberPagination.page_size = 1000000
 
 @csrf_exempt
 def Signup_detail(request, pk):
@@ -184,7 +187,7 @@ class FavViewSet(viewsets.ModelViewSet):
     """
     queryset = Fav_list.objects.all()
     serializer_class = FavSerializer
-
+    pagination.PageNumberPagination.page_size = 1000000
 @api_view(['GET', 'POST','PUT','DELETE'])
 def fav_list(request):
     """
@@ -212,3 +215,22 @@ def fav_list(request):
     elif request.method == 'DELETE':
         Fav_list.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST','PUT','DELETE'])
+def email_list(request):
+	if request.method == 'POST':
+		edata=request.data
+		qdata=Signup.objects.get(email=edata)
+		unique_id = get_random_string(length=4)
+		qdata.otp=unique_id
+		qdata.save()
+		send_mail(
+		'OTP for Reset Password',
+		'Dear '+qdata.fname+
+		' your otp is : '+unique_id,
+		'lagin.dhor@gmail.com',
+		[edata],
+		fail_silently=False,
+		)
+		
+		return Response('succ')

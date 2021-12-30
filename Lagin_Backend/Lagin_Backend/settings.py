@@ -26,7 +26,7 @@ SECRET_KEY = 'ota)2qka&rj5q(_qe9$*@baaxz736%xe!_k4a6ug02t!m1f#kv'
 DEBUG = True
 #ALLOWED_HOSTS = ['10.0.2.2']
 #ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['192.168.43.28']
+ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'Lagin_Backend.wsgi.application'
 DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': 'DhorLagin',
+    'NAME': 'lagindb',
     'USER': 'postgres',
     'PASSWORD': 'sumeet',
     'HOST': 'localhost',
@@ -139,3 +139,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# SMTP Mail service with decouple
+email_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "lagin.dhor@gmail.com"
+EMAIL_HOST_PASSWORD ="@sumeetlagin"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
